@@ -5,7 +5,7 @@ void DataParser::PopulateGraph(Graph& graph, const std::string filename) {
     inputFile.open(filename);
     std::string line;
 
-    // parsing input file
+    // parsing input file line by line
     while (getline(inputFile, line)) {
         int id;
         std::string title;
@@ -16,11 +16,11 @@ void DataParser::PopulateGraph(Graph& graph, const std::string filename) {
         id = atoi(tempString.c_str());
         getline(inputString, title, ',');
 
-        // making node + populating graph
+        // checking data corrrectedness + making node & populating graph
         if (!title.empty() && id > 0) {
-        Graph::Node* node = new Graph::Node;
-        node->title = title;
-        graph.map[id] = node;
+            Graph::Node* node = new Graph::Node;
+            node->title = title;
+            graph.map[id] = node;
         }
 
         line = "";
