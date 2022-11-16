@@ -1,2 +1,2 @@
-final-project
-data-parser.o
+bin/exec
+bin/exec.dSYM

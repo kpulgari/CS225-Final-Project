@@ -5,7 +5,7 @@
 
 int main() {
     Graph g;
-    std::string file = "enwiki-2013-names.csv";
+    std::string file = "lib/enwiki-2013-names.csv";
     DataParser d;
 
     d.PopulateGraph(g, file);
