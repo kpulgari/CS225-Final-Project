@@ -8,11 +8,8 @@ tests: bin/tests
 bin/exec: entry/main.cpp src/data-parser.cpp src/graph.cpp
 	${CXX} ${CXX_FLAGS} entry/main.cpp src/data-parser.cpp src/graph.cpp -o bin/exec
 
-bin/tests: tests/tests.cpp obj/catch.o
-	${CXX} ${CXX_FLAGS} obj/catch.o tests/tests.cc -o bin/tests
-
-obj/catch.o: tests/catch.cc
-	$(CXX) $(CXX_FLAGS) -c $^ -o $@
+bin/tests: tests/tests.cpp src/data-parser.cpp src/graph.cpp
+	${CXX} ${CXX_FLAGS} tests/tests.cpp src/data-parser.cpp src/graph.cpp -o bin/tests
 
 .DEFAULT_GOAL := exec
 .PHONY: clean exec tests
