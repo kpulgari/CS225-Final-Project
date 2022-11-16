@@ -1,16 +1,8 @@
-#include "graph.h"
-#include <string>
-#include <vector>
-#include <fstream>
-#include <iostream>
-#include <sstream>
+#include "data-parser.h"
 
-int main() {
-    Graph graph;
-
+void DataParser::PopulateGraph(Graph& graph, const std::string filename) {
     std::ifstream inputFile;
-    inputFile.open("enwiki-2013-names.csv");
-
+    inputFile.open(filename);
     std::string line;
 
     // parsing input file
@@ -33,6 +25,8 @@ int main() {
 
         line = "";
     }
-
-    std::cout << graph.map.size() << std::endl;
 }
+
+// void DataParser::PopulateGraphRelationships(Graph& graph, const std::string filename) {
+
+// };

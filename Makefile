@@ -1,15 +1,15 @@
-EXENAME = final-project
-OBJS = data-parser.o
+CXX=clang++
+INCLUDES=-Iincludes/
+CXX_FLAGS=-std=c++20 -g -Wall -Wextra -Werror -pedantic $(INCLUDES)
 
-CXX = clang++
-CXXFLAGS = -std=c++1y -stdlib=libc++ -c -g -O0 -Wall -Wextra -pedantic
-LD = clang++
-LDFLAGS = -std=c++1y -stdlib=libc++ -lpthread -lm
+exec: bin/exec
+tests: bin/tests
 
-all : $(EXENAME)
+bin/exec: entry/main.cpp src/data-parser.cpp src/graph.cpp
+	${CXX} ${CXX_FLAGS} entry/main.cpp src/data-parser.cpp src/graph.cpp -o bin/exec
 
-$(EXENAME) : $(OBJS)
-	$(LD) $(OBJS) $(LDFLAGS) -o $(EXENAME)
+.DEFAULT_GOAL := exec
+.PHONY: clean exec tests
 
-data-parser.o : data-parser.cpp
-	$(CXX) $(CXXFLAGS) data-parser.cpp
+clean:
+	rm -fr bin/* obj/*
