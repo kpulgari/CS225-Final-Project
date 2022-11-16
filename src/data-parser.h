@@ -10,5 +10,5 @@
 class DataParser {
     public:
         void PopulateGraph(Graph& graph, const std::string filename);
-        void PopulateGraphRelationships(Graph& graph, const std::string filename);
+        void PopulateEdgeRelationships(Graph& graph, const std::string filename);
 };

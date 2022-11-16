@@ -6,8 +6,9 @@
 int main() {
     Graph g;
     std::string file = "lib/enwiki-2013-names.csv";
+    std::string file2 = "lib/enwiki-2013.txt";
     DataParser d;
 
     d.PopulateGraph(g, file);
-    std::cout << g.map.size() << std::endl;
+    d.PopulateEdgeRelationships(g, file2);
 }
