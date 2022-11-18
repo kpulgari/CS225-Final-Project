@@ -11,5 +11,7 @@ class Graph {
             std::vector<int> edges;
         };
 
-        std::map<int, Node*> map; 
+        std::map<int, Node*> map;
+        std::vector<int> BFSpath(int start, int end);
+        
 };

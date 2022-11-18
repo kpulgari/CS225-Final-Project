@@ -6,6 +6,7 @@
 #include "../src/graph.h"
 
 #include <cstddef>
+#include <vector>
 
 TEST_CASE("Testing CSV Parsing and Graph Population", "[data-parsing-csv]") { 
     const int nodeCount = 4206784;
@@ -50,6 +51,24 @@ TEST_CASE("Testing TXT Parsing and Edge Vector Population", "[data-parsing-txt]"
 
     std::cout << "Total edges: " << edges << std::endl;
     REQUIRE(edges == edgeCount);
+}
+
+TEST_CASE("BFS finds correct path between nodes", "[BFS-path]") {
+    Graph g;
+    std::string file = "lib/enwiki-2013-names.csv";
+    std::string file2 = "lib/enwiki-2013.txt";
+    DataParser d;
+
+    d.PopulateGraph(g, file);
+    d.PopulateEdgeRelationships(g, file2);
+
+    std::vector<int> vect1;
+    vect1.push_back(0);
+    vect1.push_back(2);
+    REQUIRE(g.BFSpath(0, 2) == vect1);
+
+ 
+
 }
 
 
