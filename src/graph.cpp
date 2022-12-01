@@ -19,7 +19,7 @@ std::vector<int> Graph::BFSpath(int start, int end) {
             break;
         } 
         for (size_t i = 0; i < map[v]->edges.size(); ++i) {
-            int num = map[start]->edges.at(i);
+            int num = map[v]->edges.at(i);
             if (visited.find(num) == visited.end()) {
                 visited.insert(num);
                 q.push(num);
@@ -27,15 +27,20 @@ std::vector<int> Graph::BFSpath(int start, int end) {
             }
         }
     }
+
     std::vector<int> vect;
     if (!found) {
         return vect;
     }
+
     while (end != start) {
         vect.push_back(end);
         end = path[end];
     }
+
+    vect.push_back(start);
     std::reverse(vect.begin(), vect.end());
+    
     return vect;
 }
 

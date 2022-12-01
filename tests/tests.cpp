@@ -9,7 +9,7 @@
 #include <vector>
 
 TEST_CASE("Testing CSV Parsing and Graph Population", "[data-parsing-csv]") { 
-    const int nodeCount = 4206784;
+    const int nodeCount = 4206785;
 
     Graph g;
     std::string file = "lib/enwiki-2013-names.csv";
@@ -22,7 +22,7 @@ TEST_CASE("Testing CSV Parsing and Graph Population", "[data-parsing-csv]") {
 
     // testing correct id mapping
     REQUIRE(g.map[4]->title == "\"Kharqan\"");
-    REQUIRE(g.map[3397412]->title == "\"Helko\"");
+    REQUIRE(g.map[19]->title == "\"The RSHS Catalyst\"");
 }
 
 TEST_CASE("Testing TXT Parsing and Edge Vector Population", "[data-parsing-txt]") { 
@@ -49,8 +49,38 @@ TEST_CASE("Testing TXT Parsing and Edge Vector Population", "[data-parsing-txt]"
         edges += g.map[i]->edges.size();
     }
 
-    std::cout << "Total edges: " << edges << std::endl;
     REQUIRE(edges == edgeCount);
+}
+
+TEST_CASE("BFS finds correct path between nodes with sample data", "[BFS-path-sample-data]") {
+    Graph g;
+    std::string file = "lib/enwiki-2013-names-test.csv";
+    std::string file2 = "lib/enwiki-2013-test.txt";
+    DataParser d;
+
+    d.PopulateGraph(g, file);
+    d.PopulateEdgeRelationships(g, file2);
+
+    // testing function produces valid BFS path from node 0 to node 2
+    std::vector<int> vect1;
+    vect1.push_back(0);
+    vect1.push_back(2);
+
+    REQUIRE(g.BFSpath(0, 2) == vect1);
+
+    // testing function produces valid BFS path from node 2 to node 9
+    std::vector<int> vect2;
+    vect2.push_back(2);
+    vect2.push_back(7);
+    vect2.push_back(8);
+    vect2.push_back(9);
+
+    REQUIRE(g.BFSpath(2, 9) == vect2);
+
+    // testing function returns empty vector when there is no BFS path from node 2 to node 6
+    std::vector<int> vect3;
+
+    REQUIRE(g.BFSpath(2, 6) == vect3);
 }
 
 TEST_CASE("BFS finds correct path between nodes", "[BFS-path]") {
@@ -62,13 +92,16 @@ TEST_CASE("BFS finds correct path between nodes", "[BFS-path]") {
     d.PopulateGraph(g, file);
     d.PopulateEdgeRelationships(g, file2);
 
+    // testing function returns valid BFS path from node 20 to node 884615
     std::vector<int> vect1;
-    vect1.push_back(0);
-    vect1.push_back(2);
-    REQUIRE(g.BFSpath(0, 2) == vect1);
+    vect1.push_back(20);
+    vect1.push_back(882643);
+    vect1.push_back(187334);
+    vect1.push_back(207278);
+    vect1.push_back(186941);
+    vect1.push_back(884615);
 
- 
-
+    REQUIRE(g.BFSpath(20, 884615) == vect1);
 }
 
 
