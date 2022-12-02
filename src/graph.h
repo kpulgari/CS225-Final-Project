@@ -3,6 +3,10 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <queue>
+#include <set>
+#include <algorithm>
+#include <iostream>
 
 class Graph {
     public:
@@ -12,6 +16,7 @@ class Graph {
         };
 
         std::map<int, Node*> map;
+        std::vector<int> userNodeInput();
         std::vector<int> BFSpath(int start, int end);
         int IDDFS(int start, int end, int max_depth);
         bool DLS(int start, int end, int limit);

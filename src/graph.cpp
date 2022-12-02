@@ -2,6 +2,7 @@
 #include <queue>
 #include <set>
 #include <algorithm>
+#include <iostream>
 
 std::vector<int> Graph::BFSpath(int start, int end) {
     if ((start < 0 || start >= (int)map.size()) || (end < 0 || end >= (int)map.size())) {
@@ -76,6 +77,23 @@ bool Graph::DLS(int start, int end, int limit) {
         }
     }
     return false;
+}
+
+std::vector<int> Graph::userNodeInput() {
+    std::string startingNode;
+    std::string endingNode;
+    std::vector<int> result;
+
+    std::cout << "Starting Node: ";
+    std::cin >> startingNode;
+
+    std::cout << "Ending Node: ";
+    std::cin >> endingNode;
+
+    result.push_back(stoi(startingNode));
+    result.push_back(stoi(endingNode));
+
+    return result;
 }
 
 
