@@ -4,6 +4,9 @@
 #include <algorithm>
 
 std::vector<int> Graph::BFSpath(int start, int end) {
+    if ((start < 0 || start > (int)map.size()) || (end < 0 || end > (int)map.size())) {
+        return std::vector<int>();
+    }
    
     std::queue<int> q;
     std::set<int> visited;
@@ -47,6 +50,10 @@ std::vector<int> Graph::BFSpath(int start, int end) {
 
 
 int Graph::IDDFS(int start, int end, int max_depth) {
+    if ((start < 0 || start > (int)map.size()) || (end < 0 || end > (int)map.size())) {
+        return -1;
+    }
+
     for (int i = 0; i <= max_depth; ++i) {
         if (DLS(start, end, i)) {
             return i;
