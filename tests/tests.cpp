@@ -77,10 +77,17 @@ TEST_CASE("BFS finds correct path between nodes with sample data", "[BFS-path-sa
 
     REQUIRE(g.BFSpath(2, 9) == vect2);
 
-    // testing function returns empty vector when there is no BFS path from node 2 to node 6
+    // testing function returns empty vector when there is no BFS path
     std::vector<int> vect3;
 
-    REQUIRE(g.BFSpath(2, 6) == vect3);
+    REQUIRE(g.BFSpath(2, 20) == vect3);
+    REQUIRE(g.BFSpath(10, 7) == vect3);
+
+    // testing function returns empty vector when there are invalid nodes
+    std::vector<int> vect4;
+
+    REQUIRE(g.BFSpath(-1, 2) == vect4);
+    REQUIRE(g.BFSpath(1, 2523) == vect4);
 }
 
 TEST_CASE("BFS finds correct path between nodes", "[BFS-path]") {
@@ -103,10 +110,17 @@ TEST_CASE("BFS finds correct path between nodes", "[BFS-path]") {
 
     REQUIRE(g.BFSpath(20, 884615) == vect1);
 
-    // testing function returns empty vector when there is no BFS path from node 5 to node 8
+    // testing function returns empty vector when there is no BFS path
     std::vector<int> vect2;
 
     REQUIRE(g.BFSpath(5, 8) == vect2);
+    REQUIRE(g.BFSpath(20, 0) == vect2);
+
+    // testing function returns empty vector when there are invalid nodes
+    std::vector<int> vect4;
+
+    REQUIRE(g.BFSpath(-1214, 21) == vect4);
+    REQUIRE(g.BFSpath(1, 1316134911) == vect4);
 }
 
 
