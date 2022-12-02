@@ -54,7 +54,7 @@ int Graph::IDDFS(int start, int end, int max_depth) {
     return -1;
 }
 
- bool Graph::DLS(int start, int end, int limit) {
+bool Graph::DLS(int start, int end, int limit) {
     if (start == end) {
         return true;
     }
@@ -68,7 +68,7 @@ int Graph::IDDFS(int start, int end, int max_depth) {
         }
     }
     return false;
- }
+}
 
 
 
