@@ -13,5 +13,6 @@ class Graph {
 
         std::map<int, Node*> map;
         std::vector<int> BFSpath(int start, int end);
-        
+        int Graph::IDDFS(int start, int end, int max_depth);
+        bool Graph::DLS(int start, int end, int limit);
 };
