@@ -4,7 +4,7 @@
 #include <algorithm>
 
 std::vector<int> Graph::BFSpath(int start, int end) {
-    if ((start < 0 || start > (int)map.size()) || (end < 0 || end > (int)map.size())) {
+    if ((start < 0 || start >= (int)map.size()) || (end < 0 || end >= (int)map.size())) {
         return std::vector<int>();
     }
    
@@ -50,7 +50,7 @@ std::vector<int> Graph::BFSpath(int start, int end) {
 
 
 int Graph::IDDFS(int start, int end, int max_depth) {
-    if ((start < 0 || start > (int)map.size()) || (end < 0 || end > (int)map.size())) {
+    if ((start < 0 || start >= (int)map.size()) || (end < 0 || end >= (int)map.size())) {
         return -1;
     }
 
