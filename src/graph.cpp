@@ -1,6 +1,7 @@
 #include "graph.h"
 #include <queue>
 #include <set>
+#include <algorithm>
 
 std::vector<int> Graph::BFSpath(int start, int end) {
    
