@@ -45,5 +45,31 @@ std::vector<int> Graph::BFSpath(int start, int end) {
 }
 
 
+int Graph::IDDFS(int start, int end, int max_depth) {
+    for (int i = 0; i <= max_depth; ++i) {
+        if (DLS(start, end, i)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+ bool Graph::DLS(int start, int end, int limit) {
+    if (start == end) {
+        return true;
+    }
+    if (limit <= 0) {
+        return false;
+    }
+
+    for (size_t i = 0; i < map[start]->edges.size(); ++i) {
+        if (DLS(map[start]->edges[i], end, limit - 1)) {
+            return true;
+        }
+    }
+    return false;
+ }
+
+
 
  

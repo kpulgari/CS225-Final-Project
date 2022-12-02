@@ -102,6 +102,11 @@ TEST_CASE("BFS finds correct path between nodes", "[BFS-path]") {
     vect1.push_back(884615);
 
     REQUIRE(g.BFSpath(20, 884615) == vect1);
+
+    // testing function returns empty vector when there is no BFS path from node 5 to node 8
+    std::vector<int> vect2;
+
+    REQUIRE(g.BFSpath(5, 8) == vect2);
 }
 
 
