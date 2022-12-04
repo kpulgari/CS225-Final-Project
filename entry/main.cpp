@@ -24,15 +24,25 @@ int main() {
             std::vector<int> res = g.BFSpath(input[0], input[1]);
 
             if (res.size() == 0) {
-                std::cout << "-1" << std::endl;
+                std::cout << "No path found" << std::endl;
             } else {
-                std::cout << "BFS Path Size: " << res.size() << std::endl;
                 std::cout << "BFS Path: ";
                 for (auto node : res) {
                     std::cout << node << " ";
                 }
                 std::cout << "" << std::endl;
             }
+
+        } else if (choice == "IDDFS") {
+            std::vector<int> input = g.userNodeInput();
+            std::string depth;
+
+            std::cout << "Max Depth: ";
+            std::cin >> depth;
+
+            int res = g.IDDFS(input[0], input[1], stoi(depth));
+            
+            res == -1 ? std::cout << "No path found" << std::endl : std::cout << "IDDFS Depth: " << res << std::endl;
 
         } else if (choice == "end") {
             return 0;
