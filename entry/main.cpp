@@ -6,9 +6,24 @@
 int main() {
     Graph g;
     DataParser d;
+    std::string file;
+    std::string file2;
 
-    std::string file = "lib/enwiki-2013-names-test.csv";
-    std::string file2 = "lib/enwiki-2013-test.txt";
+    while (file.empty()) {
+        std::string dataset;
+        std::cout << "Use sample dataset ('s') or full dataset ('f'): ";
+        std::cin >> dataset;
+
+        if (dataset == "s") {
+            file = "lib/enwiki-2013-names-test.csv";
+            file2 = "lib/enwiki-2013-test.txt";
+        } else if (dataset == "f") {
+            file = "lib/enwiki-2013-names.csv";
+            file2 = "lib/enwiki-2013.txt";
+        } else {
+            std::cout << "Invalid selection!" << std::endl;
+        }
+    }
 
     d.PopulateGraph(g, file);
     d.PopulateEdgeRelationships(g, file2);
@@ -24,7 +39,7 @@ int main() {
             std::vector<int> res = g.BFSpath(input[0], input[1]);
 
             if (res.size() == 0) {
-                std::cout << "No path found" << std::endl;
+                std::cout << "No path found!" << std::endl;
             } else {
                 std::cout << "BFS Path: ";
                 for (auto node : res) {
@@ -42,7 +57,7 @@ int main() {
 
             int res = g.IDDFS(input[0], input[1], stoi(depth));
             
-            res == -1 ? std::cout << "No path found" << std::endl : std::cout << "IDDFS Depth: " << res << std::endl;
+            res == -1 ? std::cout << "No path found!" << std::endl : std::cout << "IDDFS Depth: " << res << std::endl;
 
         } else if (choice == "end") {
             return 0;
