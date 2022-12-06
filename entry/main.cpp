@@ -17,9 +17,11 @@ int main() {
         if (dataset == "s") {
             file = "lib/enwiki-2013-names-test.csv";
             file2 = "lib/enwiki-2013-test.txt";
+            std::cout << "Using sample dataset" << std::endl;
         } else if (dataset == "f") {
             file = "lib/enwiki-2013-names.csv";
             file2 = "lib/enwiki-2013.txt";
+            std::cout << "Using full dataset" << std::endl;
         } else {
             std::cout << "Invalid selection!" << std::endl;
         }
@@ -58,6 +60,10 @@ int main() {
             int res = g.IDDFS(input[0], input[1], stoi(depth));
             
             res == -1 ? std::cout << "No path found!" << std::endl : std::cout << "IDDFS Depth: " << res << std::endl;
+
+        } else if (choice == "PageRank") {
+            std::vector<int> input = g.userPageRankInput();
+            g.PopulatePageRank(input[0], input[1]);
 
         } else if (choice == "end") {
             return 0;

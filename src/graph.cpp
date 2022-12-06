@@ -75,6 +75,32 @@ bool Graph::DLS(int start, int end, int limit) {
     return false;
 }
 
+void Graph::PopulatePageRank(int damping, int iterations) {
+    std::map<int, int> signficanceMap;
+    int curr = 0;
+    int count = iterations;
+
+    while (iterations > 0) {
+        bool skip = (rand() % 100) < damping;
+        
+        if (skip || map[curr]->edges.empty()) {
+            curr = rand() % map.size();
+            signficanceMap[curr] += 1; 
+        } else {
+            int temp = rand() % map[curr]->edges.size();
+            curr = map[curr]->edges[temp];
+            signficanceMap[curr] += 1;
+        }
+
+        iterations--;
+    }
+
+    for (auto node : signficanceMap) {
+        Node*& currNode = map[node.first];
+        currNode->signficance = ((double)node.second / (double)count);
+    }
+}
+
 std::vector<int> Graph::userNodeInput() {
     std::string startingNode;
     std::string endingNode;
@@ -88,6 +114,23 @@ std::vector<int> Graph::userNodeInput() {
 
     result.push_back(stoi(startingNode));
     result.push_back(stoi(endingNode));
+
+    return result;
+}
+
+std::vector<int> Graph::userPageRankInput() {
+    std::string damping;
+    std::string iterations;
+    std::vector<int> result;
+
+    std::cout << "Damping Factor (0-100): ";
+    std::cin >> damping;
+
+    std::cout << "Number of Iterations: ";
+    std::cin >> iterations;
+
+    result.push_back(stoi(damping));
+    result.push_back(stoi(iterations));
 
     return result;
 }
