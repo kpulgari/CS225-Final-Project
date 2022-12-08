@@ -1,9 +1,10 @@
 #include "graph.h"
 #include <queue>
-#include <set>
-#include <algorithm>
 
 std::vector<int> Graph::BFSpath(int start, int end) {
+    if ((start < 0 || start >= (int)map.size()) || (end < 0 || end >= (int)map.size())) {
+        return std::vector<int>();
+    }
    
     std::queue<int> q;
     std::set<int> visited;
@@ -47,6 +48,10 @@ std::vector<int> Graph::BFSpath(int start, int end) {
 
 
 int Graph::IDDFS(int start, int end, int max_depth) {
+    if ((start < 0 || start >= (int)map.size()) || (end < 0 || end >= (int)map.size())) {
+        return -1;
+    }
+
     for (int i = 0; i <= max_depth; ++i) {
         if (DLS(start, end, i)) {
             return i;
@@ -55,7 +60,7 @@ int Graph::IDDFS(int start, int end, int max_depth) {
     return -1;
 }
 
- bool Graph::DLS(int start, int end, int limit) {
+bool Graph::DLS(int start, int end, int limit) {
     if (start == end) {
         return true;
     }
@@ -69,7 +74,108 @@ int Graph::IDDFS(int start, int end, int max_depth) {
         }
     }
     return false;
- }
+}
+
+void Graph::PopulatePageRank(int damping, int iterations) {
+    std::map<int, int> signficanceMap;
+    int curr = 0;
+    int count = iterations;
+
+    while (iterations > 0) {
+        bool skip = (rand() % 100) < damping;
+        
+        if (skip || map[curr]->edges.empty()) {
+            curr = rand() % map.size();
+            signficanceMap[curr] += 1; 
+        } else {
+            int temp = rand() % map[curr]->edges.size();
+            curr = map[curr]->edges[temp];
+            signficanceMap[curr] += 1;
+        }
+
+        iterations--;
+    }
+
+    for (auto node : signficanceMap) {
+        Node*& currNode = map[node.first];
+        currNode->signficance = ((double)node.second / (double)count);
+    }
+}
+
+std::vector<int> Graph::userNodeInput() {
+    std::string startingNode;
+    std::string endingNode;
+    std::vector<int> result;
+
+    std::cout << "Starting Node: ";
+    std::cin >> startingNode;
+
+    std::cout << "Ending Node: ";
+    std::cin >> endingNode;
+
+    result.push_back(stoi(startingNode));
+    result.push_back(stoi(endingNode));
+
+    return result;
+}
+
+std::vector<int> Graph::userPageRankInput() {
+    std::string damping;
+    std::string iterations;
+    std::vector<int> result;
+
+    std::cout << "Damping Factor (0-100): ";
+    std::cin >> damping;
+
+    std::cout << "Number of Iterations: ";
+    std::cin >> iterations;
+
+    result.push_back(stoi(damping));
+    result.push_back(stoi(iterations));
+
+    return result;
+}
+
+
+int Graph::FindGreatestPathBFS(int start, int end) {
+    std::vector<int> damping_iteration = userPageRankInput();
+    int damping = damping_iteration.at(0);
+    int iterations = damping_iteration.at(1);
+    PopulatePageRank(damping, iterations);
+    std::vector<int> store_path = BFSpath(start, end);
+    double Total_significance = 0;
+    for(int i : store_path) {
+        Total_significance +=  map.at(i)->signficance;
+    }
+
+    return Total_significance;
+
+}
+
+
+std::vector<int> Graph::Dijkstra(int start, int end) {
+    std::map<Node*, int> distance_map;// populate map with everythin being large except start which is 0
+    for(auto iterate = map.begin(); iterate != map.end(); iterate++) {
+        if(iterate->first == start) {
+            distance_map.insert({iterate->second,0});
+        } else {
+            distance_map.insert({iterate->second, 10000});
+
+        }
+
+    }
+
+    std::set<Node*> visited; // defining the set to check visited
+
+    std::queue<std::pair<Node*, int>> priority_queue;
+    priority_queue.push({map.at(start), 0});
+
+
+
+
+}
+
+ 
 
 
 
