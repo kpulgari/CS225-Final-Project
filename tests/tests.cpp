@@ -77,17 +77,24 @@ TEST_CASE("BFS finds correct path between nodes with sample data", "[BFS-path-sa
 
     REQUIRE(g.BFSpath(2, 9) == vect2);
 
-    // testing function returns empty vector when there is no BFS path
+    // testing function returns empty vector when there is no BFS path from node 2 to node 6
     std::vector<int> vect3;
 
-    REQUIRE(g.BFSpath(2, 20) == vect3);
-    REQUIRE(g.BFSpath(10, 7) == vect3);
+    REQUIRE(g.BFSpath(2, 6) == vect3);
 
-    // testing function returns empty vector when there are invalid nodes
+    // testing function returns a vector with one element if start and end are equal
     std::vector<int> vect4;
+    vect4.push_back(20);
 
-    REQUIRE(g.BFSpath(-1, 2) == vect4);
-    REQUIRE(g.BFSpath(1, 2523) == vect4);
+    REQUIRE(g.BFSpath(20, 20) == vect4);
+
+    // testing path direction works one way
+
+    std::vector<int> vect5;
+
+    REQUIRE(g.BFSpath(7, 2) == vect5);
+
+
 }
 
 TEST_CASE("BFS finds correct path between nodes", "[BFS-path]") {
@@ -110,20 +117,13 @@ TEST_CASE("BFS finds correct path between nodes", "[BFS-path]") {
 
     REQUIRE(g.BFSpath(20, 884615) == vect1);
 
-    // testing function returns empty vector when there is no BFS path
+    // testing function returns empty vector when there is no BFS path from node 5 to node 8
     std::vector<int> vect2;
 
     REQUIRE(g.BFSpath(5, 8) == vect2);
-    REQUIRE(g.BFSpath(20, 0) == vect2);
-
-    // testing function returns empty vector when there are invalid nodes
-    std::vector<int> vect4;
-
-    REQUIRE(g.BFSpath(-1214, 21) == vect4);
-    REQUIRE(g.BFSpath(1, 1316134911) == vect4);
 }
 
-TEST_CASE("IDDFS has expected values && matches up with BFS path", "[IDDFS-sample-data]") {
+TEST_CASE("IDDFS has expected values") {
     Graph g;
     std::string file = "lib/enwiki-2013-names-test.csv";
     std::string file2 = "lib/enwiki-2013-test.txt";
@@ -132,20 +132,40 @@ TEST_CASE("IDDFS has expected values && matches up with BFS path", "[IDDFS-sampl
     d.PopulateGraph(g, file);
     d.PopulateEdgeRelationships(g, file2);
 
-    // testing IDDFS function returns proper depth
-    REQUIRE(g.IDDFS(14,17,10) == 2);
+     // testing IDDFS function returns proper depth
+
+    REQUIRE(g.IDDFS(14,17,10) == 2); 
+
+    // IDDFS function returns -1 when there is no path
+
+    REQUIRE(g.IDDFS(4,5,10) == -1); 
+
+    REQUIRE(g.IDDFS(4,5,3) == -1);
+
+    REQUIRE(g.IDDFS(0,9,2) == -1);
+
+    REQUIRE(g.IDDFS(0,9,10) == 4);
+
+}
+TEST_CASE("IDDFS matches up with BFS path") {
+    Graph g;
+    std::string file = "lib/enwiki-2013-names-test.csv";
+    std::string file2 = "lib/enwiki-2013-test.txt";
+    DataParser d;
+
+    d.PopulateGraph(g, file);
+    d.PopulateEdgeRelationships(g, file2);
+
     REQUIRE(g.IDDFS(14,17, 10) == int(g.BFSpath(14,17).size()) - 1);
 
     REQUIRE(g.IDDFS(0,7, 10) == int(g.BFSpath(0,7).size()) - 1);
+
     REQUIRE(g.IDDFS(4,5, 10) == int(g.BFSpath(4,5).size()) - 1);
-    
-    REQUIRE(g.IDDFS(0,9,10) == 4);
+
     REQUIRE(g.IDDFS(0,9, 10) == int(g.BFSpath(0,9).size()) - 1);
 
-    // testing IDDFS function returns -1 when there is no path
-    REQUIRE(g.IDDFS(4,5,10) == -1);
-
 }
+
 
 
 #endif
