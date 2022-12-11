@@ -24,6 +24,7 @@ class Graph {
         bool DLS(int start, int end, int limit);
         void PopulatePageRank(int damping, int iterations);
         int FindGreatestPathBFS(int start, int end);
-        std::vector<int> Dijkstra(int start, int end);
+        std::string FindMostSignificantNode();
+        //std::vector<int> Dijkstra(int start, int end);
         
 };
