@@ -11,6 +11,8 @@ std::vector<int> Graph::BFSpath(int start, int end) {
     std::set<int> visited;
     q.push(start);
     visited.insert(start);
+    // path keeps track of which nodes point to which
+    // key is node being pointed to and value is node that the edge is coming from
     std::map<int, int> path;
     bool found = false;
     
@@ -30,18 +32,21 @@ std::vector<int> Graph::BFSpath(int start, int end) {
             }
         }
     }
-
+    
     std::vector<int> vect;
+    // if end is not found, return empty vector
     if (!found) {
         return vect;
     }
-
+    // go backwards through path to get return vector
+    // this will be backwards, so we must reverse
     while (end != start) {
         vect.push_back(end);
         end = path[end];
     }
 
     vect.push_back(start);
+    
     std::reverse(vect.begin(), vect.end());
     
     return vect;
@@ -49,15 +54,17 @@ std::vector<int> Graph::BFSpath(int start, int end) {
 
 
 int Graph::IDDFS(int start, int end, int max_depth) {
+    //basic checks for size out of bounds errors
     if ((start < 0 || start >= (int)map.size()) || (end < 0 || end >= (int)map.size())) {
         return -1;
     }
-
+    // run depth level search for each depth until max_depth
     for (int i = 0; i <= max_depth; ++i) {
         if (DLS(start, end, i)) {
             return i;
         }
     }
+    // if end is not found, we return -1
     return -1;
 }
 
