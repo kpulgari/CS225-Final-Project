@@ -116,6 +116,25 @@ void Graph::PopulatePageRank(int damping, int iterations) {
         // this takes the total ties it was visited/ total iterations to get like the percent of times it was visited
         currNode->signficance = ((double)node.second / (double)count);
     }
+
+
+}
+
+int Graph::FindMostSignificantNode() {
+    //The current best key 
+    int current_best_key = 0;
+    // settign significance value to something low
+    int greatest_significance = -1;
+    for(auto iterate = map.begin();iterate != map.end(); iterate++) {
+        //iterates through every node in the graph
+        if(iterate->second->signficance > greatest_significance) {
+            //basically if there is a more significant node you change the current key to set it as the new node and change significance
+            current_best_key = iterate->first;
+            greatest_significance = iterate->second->signficance;
+        }
+    }
+
+    return current_best_key;
 }
 
 std::vector<int> Graph::userNodeInput() {
@@ -154,23 +173,6 @@ std::vector<int> Graph::userPageRankInput() {
     result.push_back(stoi(iterations));
 
     return result;
-}
-
-int Graph::FindMostSignificantNode() {
-    //The current best key 
-    int current_best_key = 0;
-    // settign significance value to something low
-    int greatest_significance = -1;
-    for(auto iterate = map.begin();iterate != map.end(); iterate++) {
-        //iterates through every node in the graph
-        if(iterate->second->signficance > greatest_significance) {
-            //basically if there is a more significant node you change the current key to set it as the new node and change significance
-            current_best_key = iterate->first;
-            greatest_significance = iterate->second->signficance;
-        }
-    }
-
-    return current_best_key;
 }
 
 

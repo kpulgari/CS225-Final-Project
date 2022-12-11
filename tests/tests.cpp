@@ -85,7 +85,6 @@ TEST_CASE("BFS finds correct path between nodes using sample data", "[BFS-path-s
     vect1.push_back(2);
 
     REQUIRE(sampleDataset.BFSpath(0, 2) == vect1);
-
     // testing function produces valid BFS path from node 2 to node 9
     std::vector<int> vect2;
     vect2.push_back(2);
@@ -139,49 +138,46 @@ TEST_CASE("BFS finds correct path between nodes using full dataset", "[BFS-path-
     REQUIRE(fullDataset.BFSpath(5, 8) == vect2);
 }
 
-TEST_CASE("IDDFS has expected values using full dataset", "[IDDFS-fullDataset]") {
+TEST_CASE("IDDFS has expected values using sample dataset", "[IDDFS-sampleDataset]") {
 
-
-    Graph fullDataset;
+    Graph sampleDataset;
     std::string file = "lib/enwiki-2013-names.csv";
     std::string file2 = "lib/enwiki-2013.txt";
     DataParser d;
 
-    d.PopulateGraph(fullDataset, file);
-    d.PopulateEdgeRelationships(fullDataset, file2);
+    d.PopulateGraph(sampleDataset, file);
+    d.PopulateEdgeRelationships(sampleDataset, file2);
 
      // testing IDDFS function returns proper depth
-    REQUIRE(fullDataset.IDDFS(14,17,10) == 2); 
+    REQUIRE(sampleDataset.IDDFS(14,17,10) == 2); 
 
     // IDDFS function returns -1 when there is no path
 
-    REQUIRE(fullDataset.IDDFS(4,5,3) == -1);
+    REQUIRE(sampleDataset.IDDFS(4,5,3) == -1);
 
-    REQUIRE(fullDataset.IDDFS(0,9,2) == -1);
+    REQUIRE(sampleDataset.IDDFS(0,9,2) == -1);
 
-    REQUIRE(fullDataset.IDDFS(0,9,10) == 4);
+    REQUIRE(sampleDataset.IDDFS(0,9,1) == -1);
 
 }
 
-TEST_CASE("IDDFS matches up with BFS path using full dataset", "[IDDFS-BFS-match-fullDataset]") {
+TEST_CASE("IDDFS matches up with BFS path using sample dataset", "[IDDFS-BFS-match-sampleDataset]") {
 
-
-
-    Graph fullDataset;
-    std::string file = "lib/enwiki-2013-names.csv";
-    std::string file2 = "lib/enwiki-2013.txt";
+    Graph sampleDataset;
+    std::string file = "lib/enwiki-2013-names-test.csv";
+    std::string file2 = "lib/enwiki-2013-test.txt";
     DataParser d;
 
-    d.PopulateGraph(fullDataset, file);
-    d.PopulateEdgeRelationships(fullDataset, file2);
+    d.PopulateGraph(sampleDataset, file);
+    d.PopulateEdgeRelationships(sampleDataset, file2);
 
-    REQUIRE(fullDataset.IDDFS(14,17, 10) == int(fullDataset.BFSpath(14,17).size()) - 1);
+    REQUIRE(sampleDataset.IDDFS(14,17, 10) == int(sampleDataset.BFSpath(14,17).size()) - 1);
 
-    REQUIRE(fullDataset.IDDFS(0,7, 10) == int(fullDataset.BFSpath(0,7).size()) - 1);
+    REQUIRE(sampleDataset.IDDFS(0,7, 10) == int(sampleDataset.BFSpath(0,7).size()) - 1);
 
-    REQUIRE(fullDataset.IDDFS(4,5, 10) == int(fullDataset.BFSpath(4,5).size()) - 1);
+    REQUIRE(sampleDataset.IDDFS(4,5, 10) == int(sampleDataset.BFSpath(4,5).size()) - 1);
 
-    REQUIRE(fullDataset.IDDFS(0,9, 10) == int(fullDataset.BFSpath(0,9).size()) - 1);
+    REQUIRE(sampleDataset.IDDFS(0,9, 10) == int(sampleDataset.BFSpath(0,9).size()) - 1);
 
 }
 
