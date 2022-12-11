@@ -137,7 +137,7 @@ std::vector<int> Graph::userPageRankInput() {
 }
 
 
-int Graph::FindGreatestPathBFS(int start, int end) {
+int Graph::FindSignificanceofPathBFS(int start, int end) {
     std::vector<int> damping_iteration = userPageRankInput();
     int damping = damping_iteration.at(0);
     int iterations = damping_iteration.at(1);
@@ -170,51 +170,6 @@ std::string Graph::FindMostSignificantNode() {
 
 
 
-// std::vector<int> Graph::Dijkstra(int start, int end) {
-//     std::map<Node*, int> distance_map;// populate map with everythin being large except start which is 0
-//     for(auto iterate = map.begin(); iterate != map.end(); iterate++) {
-//         if(iterate->first == start) {
-//             distance_map.insert({iterate->second,2});
-//         } else {
-//             distance_map.insert({iterate->second, 0});
-
-//         }
-
-//     }
-
-//     std::set<Node*> visited; // defining the set to check visited
-
-//     std::queue<std::pair<Node*, int>> priority_queue;
-//     priority_queue.push({map.at(start), 2});// priority Queues significance is same as distance map second
-
-//     while(!priority_queue.empty()) {
-//         int significance = priority_queue.front().second;
-//         int curr_int = start;
-//         Node* current_node = priority_queue.front().first;// basically you need to set the distance and the node current then you pop queue and add to visited just like bfs
-//         priority_queue.pop();
-//         visited.insert(current_node);
-//         // edges returns an int which is a key 
-//         for(unsigned int i = 0; i < map.at(curr_int)->edges.size(); i++) {
-//             //i is an iterator through the vector of edges and is in int so we can take this and find the node then find distance from it
-//             if(distance_map.at(map.at(map.at(curr_int)->edges.at(i))) < distance_map.at(map.at(curr_int)) + map.at(map.at(curr_int)->edges.at(i))->signficance) {
-//                 // now update stuff sorry this was so long
-//                 distance_map.at(map.at(map.at(curr_int)->edges.at(i))) = distance_map.at(map.at(curr_int)) + map.at(map.at(curr_int)->edges.at(i))->signficance;
-
-//             }
-//             if(visited.find(map.at(map.at(curr_int)->edges.at(i))) == visited.end()) {
-//                 //if visited does not contain this node add it to queues
-//                 priority_queue.push({map.at(map.at(curr_int)->edges.at(i)), distance_map.at(map.at(map.at(curr_int)->edges.at(i)))});
-//             }
-            
-
-//         }
-
-//     }
-
-
-
-
-// }
 
  
 

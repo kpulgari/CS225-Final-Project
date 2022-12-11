@@ -23,7 +23,7 @@ class Graph {
         int IDDFS(int start, int end, int max_depth);
         bool DLS(int start, int end, int limit);
         void PopulatePageRank(int damping, int iterations);
-        int FindGreatestPathBFS(int start, int end);
+        int FindSignificanceofPathBFS(int start, int end);
         std::string FindMostSignificantNode();
         //std::vector<int> Dijkstra(int start, int end);
         
