@@ -8,15 +8,16 @@
 #include <cstddef>
 #include <vector>
 
-Graph fullDataset;
-Graph sampleDataset;
 
-std::string file = "lib/enwiki-2013-names.csv";
-std::string file2 = "lib/enwiki-2013.txt";
-std::string file3 = "lib/enwiki-2013-names-test.csv";
-std::string file4 = "lib/enwiki-2013-test.txt";
 
 TEST_CASE("Testing CSV Parsing and Graph Population", "[data-parsing-csv]") { 
+    Graph fullDataset;
+    Graph sampleDataset;
+
+    std::string file = "lib/enwiki-2013-names.csv";
+    std::string file2 = "lib/enwiki-2013.txt";
+    std::string file3 = "lib/enwiki-2013-names-test.csv";
+    std::string file4 = "lib/enwiki-2013-test.txt";
     DataParser d;
     d.PopulateGraph(fullDataset, file);
     d.PopulateEdgeRelationships(fullDataset, file2);
@@ -43,6 +44,14 @@ TEST_CASE("Testing CSV Parsing and Graph Population", "[data-parsing-csv]") {
 }
 
 TEST_CASE("Testing TXT Parsing and Edge Vector Population", "[data-parsing-txt]") { 
+
+    Graph fullDataset;
+    std::string file = "lib/enwiki-2013-names.csv";
+    std::string file2 = "lib/enwiki-2013.txt";
+    DataParser d;
+
+    d.PopulateGraph(fullDataset, file);
+    d.PopulateEdgeRelationships(fullDataset, file2);
     const int edgeCount = 101311613;
 
     // testing node's edge vector being populated
@@ -61,6 +70,14 @@ TEST_CASE("Testing TXT Parsing and Edge Vector Population", "[data-parsing-txt]"
 }
 
 TEST_CASE("BFS finds correct path between nodes using sample data", "[BFS-path-sampleDataset]") {
+
+    Graph sampleDataset;
+    std::string file = "lib/enwiki-2013-names-test.csv";
+    std::string file2 = "lib/enwiki-2013-test.txt";
+    DataParser d;
+
+    d.PopulateGraph(sampleDataset, file);
+    d.PopulateEdgeRelationships(sampleDataset, file2);
 
     // testing function produces valid BFS path from node 0 to node 2
     std::vector<int> vect1;
@@ -97,6 +114,14 @@ TEST_CASE("BFS finds correct path between nodes using sample data", "[BFS-path-s
 
 TEST_CASE("BFS finds correct path between nodes using full dataset", "[BFS-path-fullDataset]") {
 
+    Graph fullDataset;
+    std::string file = "lib/enwiki-2013-names.csv";
+    std::string file2 = "lib/enwiki-2013.txt";
+    DataParser d;
+
+    d.PopulateGraph(fullDataset, file);
+    d.PopulateEdgeRelationships(fullDataset, file2);
+
     // testing function returns valid BFS path from node 20 to node 884615
     std::vector<int> vect1;
     vect1.push_back(20);
@@ -116,11 +141,19 @@ TEST_CASE("BFS finds correct path between nodes using full dataset", "[BFS-path-
 
 TEST_CASE("IDDFS has expected values using full dataset", "[IDDFS-fullDataset]") {
 
+
+    Graph fullDataset;
+    std::string file = "lib/enwiki-2013-names.csv";
+    std::string file2 = "lib/enwiki-2013.txt";
+    DataParser d;
+
+    d.PopulateGraph(fullDataset, file);
+    d.PopulateEdgeRelationships(fullDataset, file2);
+
      // testing IDDFS function returns proper depth
     REQUIRE(fullDataset.IDDFS(14,17,10) == 2); 
 
     // IDDFS function returns -1 when there is no path
-    REQUIRE(fullDataset.IDDFS(4,5,10) == -1); 
 
     REQUIRE(fullDataset.IDDFS(4,5,3) == -1);
 
@@ -131,6 +164,16 @@ TEST_CASE("IDDFS has expected values using full dataset", "[IDDFS-fullDataset]")
 }
 
 TEST_CASE("IDDFS matches up with BFS path using full dataset", "[IDDFS-BFS-match-fullDataset]") {
+
+
+
+    Graph fullDataset;
+    std::string file = "lib/enwiki-2013-names.csv";
+    std::string file2 = "lib/enwiki-2013.txt";
+    DataParser d;
+
+    d.PopulateGraph(fullDataset, file);
+    d.PopulateEdgeRelationships(fullDataset, file2);
 
     REQUIRE(fullDataset.IDDFS(14,17, 10) == int(fullDataset.BFSpath(14,17).size()) - 1);
 
@@ -143,6 +186,14 @@ TEST_CASE("IDDFS matches up with BFS path using full dataset", "[IDDFS-BFS-match
 }
 
 TEST_CASE("PageRank works properly using sample data", "[PageRank-sampleDataset]") {
+
+    Graph sampleDataset;
+    std::string file = "lib/enwiki-2013-names-test.csv";
+    std::string file2 = "lib/enwiki-2013-test.txt";
+    DataParser d;
+
+    d.PopulateGraph(sampleDataset, file);
+    d.PopulateEdgeRelationships(sampleDataset, file2);
 
     // testing signficance when damping factor is 0
     sampleDataset.PopulatePageRank(0, 100000);
@@ -158,6 +209,15 @@ TEST_CASE("PageRank works properly using sample data", "[PageRank-sampleDataset]
 }
 
 TEST_CASE("Correctly finds most significant node in sample data", "[FindMostSignificantNode-sampleDataset]") {
+
+    Graph sampleDataset;
+    std::string file = "lib/enwiki-2013-names-test.csv";
+    std::string file2 = "lib/enwiki-2013-test.txt";
+    DataParser d;
+
+    d.PopulateGraph(sampleDataset, file);
+    d.PopulateEdgeRelationships(sampleDataset, file2);
+
     sampleDataset.PopulatePageRank(80, 100000);
     REQUIRE(sampleDataset.FindMostSignificantNode() == 20);
 }
