@@ -1,5 +1,4 @@
 # CS225-Final-Project
-Final Project for CS 225
 
 The entry folder contains “main.cpp”, which is where the user can run our algorithms on a graph created either from the full dataset or our sample dataset. The lib folder contains all our datasets. The files enwiki-2013-names.csv and enwiki-2013.txt are the files we obtained from the Stanford SNAP group at https://snap.stanford.edu/data/enwiki-2013.html. The other two files are sample data that we created for testing. Our src folder contains the code for our two classes: DataParser and Graph. Finally, our tests folder contains the test cases for all our functions.
 
