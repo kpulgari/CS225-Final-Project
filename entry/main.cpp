@@ -43,11 +43,10 @@ int main() {
             if (res.size() == 0) {
                 std::cout << "No path found!" << std::endl;
             } else {
-                std::cout << "BFS Path: ";
+                std::cout << "BFS Path: " << std::endl;
                 for (auto node : res) {
-                    std::cout << node << " ";
+                    std::cout << "Node: " << node << "  " << "Title: " << g.map[node]->title << std::endl;
                 }
-                std::cout << "" << std::endl;
             }
 
         } else if (choice == "IDDFS") {
@@ -64,7 +63,7 @@ int main() {
         } else if (choice == "PageRank") {
             std::vector<int> input = g.userPageRankInput();
             g.PopulatePageRank(input[0], input[1]);
-
+            std::cout << g.FindMostSignificantNode() << std::endl;
         } else if (choice == "end") {
             return 0;
         } else {
