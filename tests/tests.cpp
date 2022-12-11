@@ -31,6 +31,15 @@ TEST_CASE("Testing CSV Parsing and Graph Population", "[data-parsing-csv]") {
     // testing correct id mapping
     REQUIRE(fullDataset.map[4]->title == "\"Kharqan\"");
     REQUIRE(fullDataset.map[19]->title == "\"The RSHS Catalyst\"");
+    REQUIRE(fullDataset.map[4204801]->title == "\"Elisabeth Owens\"");
+    REQUIRE(fullDataset.map[4204802]->title == "\"SS Hastier\"");
+    REQUIRE(fullDataset.map[4204803]->title == "\"Isabel Crawford\"");
+    REQUIRE(fullDataset.map[4204804]->title == "\"USS Vigilant\"");
+    REQUIRE(fullDataset.map[1979104]->title == "\"Metropolis of Philadelphia\"");
+    REQUIRE(fullDataset.map[608470]->title == "\"Gambsheim\"");
+    REQUIRE(fullDataset.map[608471]->title == "\"Herrlisheim\"");
+
+    
 }
 
 TEST_CASE("Testing TXT Parsing and Edge Vector Population", "[data-parsing-txt]") { 
