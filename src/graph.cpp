@@ -1,6 +1,7 @@
 #include "graph.h"
 #include <queue>
-
+// finds shortest path between start and end nodes using BFS and returns path as vector of node ids
+// if there is no path, function returns empty vector
 std::vector<int> Graph::BFSpath(int start, int end) {
     //basic checks for size out of bounds errors
     if ((start < 0 || start >= (int)map.size()) || (end < 0 || end >= (int)map.size())) {
@@ -52,7 +53,8 @@ std::vector<int> Graph::BFSpath(int start, int end) {
     return vect;
 }
 
-
+// returns distance between two nodes if less than or equal to max_depth
+// if end is not found, we return -1
 int Graph::IDDFS(int start, int end, int max_depth) {
     //basic checks for size out of bounds errors
     if ((start < 0 || start >= (int)map.size()) || (end < 0 || end >= (int)map.size())) {
@@ -64,10 +66,12 @@ int Graph::IDDFS(int start, int end, int max_depth) {
             return i;
         }
     }
-    // if end is not found, we return -1
+   
     return -1;
 }
 
+// depth level search
+// helper function for IDDFS
 bool Graph::DLS(int start, int end, int limit) {
     if (start == end) {
         return true;
