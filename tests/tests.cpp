@@ -148,15 +148,10 @@ TEST_CASE("PageRank works properly using sample data", "[PageRank-sampleDataset]
     REQUIRE(sampleDataset.map[20]->signficance > sampleDataset.map[9]->signficance);
 }
 
-TEST_CASE("Correctly finds most significant node in sample data", "[FindMostSignificantNode-sampleDataset") {
+TEST_CASE("Correctly finds most significant node in sample data", "[FindMostSignificantNode-sampleDataset]") {
     sampleDataset.PopulatePageRank(80, 100000);
     REQUIRE(sampleDataset.FindMostSignificantNode() == 20);
 }
-
-TEST_CASE("Correctly finds most significant node in full dataset", "[FindMostSignificantNode-fullDataset") {
-    fullDataset.PopulatePageRank(80, 100000);
-    REQUIRE(fullDataset.FindMostSignificantNode() == 4206762);
-} 
 
 
 
