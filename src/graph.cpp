@@ -136,23 +136,7 @@ std::vector<int> Graph::userPageRankInput() {
     return result;
 }
 
-
-int Graph::FindSignificanceofPathBFS(int start, int end) {
-    std::vector<int> damping_iteration = userPageRankInput();
-    int damping = damping_iteration.at(0);
-    int iterations = damping_iteration.at(1);
-    PopulatePageRank(damping, iterations);
-    std::vector<int> store_path = BFSpath(start, end);
-    double Total_significance = 0;
-    for(int i : store_path) {
-        Total_significance +=  map.at(i)->signficance;
-    }
-
-    return Total_significance;
-
-}
-
-std::string Graph::FindMostSignificantNode() {
+int Graph::FindMostSignificantNode() {
     int current_best_key = 0;
     int greatest_significance = -1;
     for(auto iterate = map.begin();iterate != map.end(); iterate++) {
@@ -162,9 +146,7 @@ std::string Graph::FindMostSignificantNode() {
         }
     }
 
-    return map.at(current_best_key)->title;
-
-
+    return current_best_key;
 }
 
 

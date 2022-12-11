@@ -33,7 +33,7 @@ int main() {
     while (true) {
         std::string choice;
 
-        std::cout << "Choose an algorithm (BFS, IDDFS, PageRank) or type 'end' to terminate: ";
+        std::cout << "Choose an algorithm ('BFS', 'IDDFS', 'PageRank') or type 'end' to terminate: ";
         std::cin >> choice;
 
         if (choice == "BFS") {
@@ -45,7 +45,7 @@ int main() {
             } else {
                 std::cout << "BFS Path: " << std::endl;
                 for (auto node : res) {
-                    std::cout << "Node: " << node << "  " << "Title: " << g.map[node]->title << std::endl;
+                    std::cout << "ID: " << node << "  " << "Title: " << g.map[node]->title << std::endl;
                 }
             }
 
@@ -63,7 +63,11 @@ int main() {
         } else if (choice == "PageRank") {
             std::vector<int> input = g.userPageRankInput();
             g.PopulatePageRank(input[0], input[1]);
-            std::cout << g.FindMostSignificantNode() << std::endl;
+
+            int node = g.FindMostSignificantNode();
+            std::cout << "Most significant node:" << std::endl;
+            std::cout << "ID: " << node << "  " << "Title: " << g.map[node]->title << std::endl;
+
         } else if (choice == "end") {
             return 0;
         } else {
